@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const usedToken = [];
+
 const users = new mongoose.Schema({
   username: {type:String, required:true, unique:true},
   password: {type:String, required:true},
@@ -46,19 +48,36 @@ users.statics.authenticateBasic = function(auth) {
     .catch(error => {throw error;});
 };
 
+users.statics.authenticateToken = function(token){
+  const decryptedToken = jwt.verify(token, process.env.SECRET || 'secret');
+  
+  if(!usedToken.includes(token)){
+    usedToken.push(token);
+  }else{
+    console.log('this token has been used once');
+    return Promise.reject('invalid token');
+  }
+  const query = {_id: decryptedToken.id};
+  return this.findOne(query);
+};
+
 users.methods.comparePassword = function(password) {
   return bcrypt.compare( password, this.password )
     .then( valid => valid ? this : null);
 };
 
 users.methods.generateToken = function() {
+  let options = {
+    expiresIn: '1m',
+  };
   
   let token = {
     id: this._id,
-    role: this.role,
+    role: this.role, 
   };
   
-  return jwt.sign(token, process.env.SECRET);
+  return jwt.sign(token, process.env.SECRET, options);
 };
 
 module.exports = mongoose.model('users', users);
+
