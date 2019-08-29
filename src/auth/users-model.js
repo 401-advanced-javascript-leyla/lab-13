@@ -13,6 +13,8 @@ const users = new mongoose.Schema({
   role: {type: String, default:'user', enum: ['admin','editor','user']},
 });
 
+
+
 users.pre('save', function(next) {
   bcrypt.hash(this.password, 10)
     .then(hashedPassword => {
@@ -50,15 +52,19 @@ users.statics.authenticateBasic = function(auth) {
 
 users.statics.authenticateToken = function(token){
   const decryptedToken = jwt.verify(token, process.env.SECRET || 'secret');
-  
-  if(!usedToken.includes(token)){
-    usedToken.push(token);
+  if(token.type === 'key'){
+    const query = {_id: decryptedToken.id};
+    return this.findOne(query);
   }else{
-    console.log('this token has been used once');
-    return Promise.reject('invalid token');
+    if(!usedToken.includes(token)){
+      usedToken.push(token);
+    }else{
+      console.log('this token has been used once');
+      return Promise.reject('invalid token');
+    }
+    const query = {_id: decryptedToken.id};
+    return this.findOne(query);
   }
-  const query = {_id: decryptedToken.id};
-  return this.findOne(query);
 };
 
 users.methods.comparePassword = function(password) {
@@ -66,17 +72,27 @@ users.methods.comparePassword = function(password) {
     .then( valid => valid ? this : null);
 };
 
-users.methods.generateToken = function() {
+// users.generateKey = function(type){
+//   users.generateToken(type);
+// };
+
+users.methods.generateToken = function(type) {
   let options = {
-    expiresIn: '1m',
+    expiresIn: '15m',
   };
   
   let token = {
     id: this._id,
     role: this.role, 
+    // type: type || 'users',
   };
   
-  return jwt.sign(token, process.env.SECRET, options);
+  if(type){
+    return jwt.sign(token, process.env.SECRET);
+  }else{
+    return jwt.sign(token, process.env.SECRET, options);
+  }
+  
 };
 
 module.exports = mongoose.model('users', users);

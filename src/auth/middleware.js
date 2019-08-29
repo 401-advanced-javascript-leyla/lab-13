@@ -20,7 +20,12 @@ module.exports = (req, res, next) => {
     next(e);
   }
   
-  
+  /**
+   *This function 
+   *
+   * @param {string} str
+   * @returns
+   */
   function _authBasic(str) {
     // str: am9objpqb2hubnk=
     let base64Buffer = Buffer.from(str, 'base64'); // <Buffer 01 02 ...>

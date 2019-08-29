@@ -33,8 +33,8 @@ authRouter.get('/oauth', (req,res,next) => {
 });
 
 authRouter.post('/key', auth, (req,res,next)=>{
-  res.cookie('auth', req.key);
-  res.send(req.key);
+  res.key = req.user.generateToken('key');
+  res.send(res.key);
 });
 
 module.exports = authRouter;
