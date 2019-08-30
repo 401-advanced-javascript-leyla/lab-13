@@ -7,10 +7,12 @@
 
 ### Links and Resources
 * [submission PR](https://github.com/401-advanced-javascript-leyla/lab-13/pulls)
-* [travis](https://www.travis-ci.com/401-advanced-javascript-leyla/lab-13/builds/124974294)
+* [travis](https://travis-ci.com/401-advanced-javascript-leyla/lab-13)
+* [heroku](https://lab-13-leyla.herokuapp.com/)
 
 #### Documentation
 * [jsdoc](http://localhost:3000/docs/) 
+* [swagger](http://localhost:3333/api-docs)
 
 ### Modules
 #### `users-model.js`
@@ -32,8 +34,5 @@
   
 #### Tests
 * `npm run test`
-* What assertions were made?
-* What assertions need to be / should be made?
 
-#### UML
-Link to an image of the UML for your application and response to events
+
