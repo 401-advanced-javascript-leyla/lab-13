@@ -11,8 +11,9 @@ const oauth = require('./oauth/google.js');
  *This creates a new user and save it to database and append token, user to req
  *
  * @route POST /signup
- * @param username the username
- * @param password the password
+ * @param {object}req
+ * @param {object}res
+ * @param {object}next
  *
  */
 
@@ -32,9 +33,9 @@ authRouter.post('/signup', (req, res, next) => {
  *This allows user with valid information to signin and response send out req.token
  *
  * @route POST /signin
- * @param req
- * @param res
- * @param next
+ * @param {object}req
+ * @param {object}res
+ * @param {object}next
  *
  */
 
@@ -47,9 +48,9 @@ authRouter.post('/signin', auth, (req, res, next) => {
  *This creates a token by oauth and send token back
  *
  * @route GET /oauth
- * @param req
- * @param res
- * @param next
+ * @param {object}req
+ * @param {object}res
+ * @param {object}next
  *
  */
 
@@ -65,9 +66,9 @@ authRouter.get('/oauth', (req,res,next) => {
  *This creates a key and append it to req, then send req.key
  *
  * @route POST /key
- * @param req
- * @param res
- * @param next
+ * @param {object}req
+ * @param {object}res
+ * @param {object}next
  *
  */
 
