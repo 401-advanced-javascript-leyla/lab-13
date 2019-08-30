@@ -1,7 +1,11 @@
 'use strict';
 
-const User = require('./users-model.js');
 
+const User = require('./users-model.js');
+/**
+ * User Model
+ * @module src/users-model
+ */
 module.exports = (req, res, next) => {
 
   try {
