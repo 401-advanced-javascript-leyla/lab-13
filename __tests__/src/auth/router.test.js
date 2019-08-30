@@ -19,14 +19,14 @@ beforeAll(supergoose.startDB);
 afterAll(supergoose.stopDB);
 
 describe('Auth Router', () => {
-  
+
   Object.keys(users).forEach( userType => {
-    
+
     describe(`${userType} users`, () => {
-      
+
       let encodedToken;
       let id;
-      
+
       it('can create one', () => {
         return mockRequest.post('/signup')
           .send(users[userType])
@@ -68,7 +68,7 @@ describe('Auth Router', () => {
 
 
     });
-    
+
   });
-  
+
 });

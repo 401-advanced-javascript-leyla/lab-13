@@ -1,6 +1,6 @@
 'use strict';
 
-process.env.SECRET="test";
+process.env.SECRET='test';
 
 const supergoose = require('../../supergoose.js');
 const auth = require('../../../src/auth/middleware.js');
@@ -23,14 +23,14 @@ beforeAll(async (done) => {
 afterAll(supergoose.stopDB);
 
 describe('Auth Middleware', () => {
-  
+
   // admin:password: YWRtaW46cGFzc3dvcmQ=
   // admin:foo: YWRtaW46Zm9v
-  
-  let errorObject = "Invalid User ID/Password";
-  
+
+  let errorObject = 'Invalid User ID/Password';
+
   describe('user authentication', () => {
-    
+
     let cachedToken;
 
     it('fails a login for a user (admin) with the incorrect basic credentials', () => {
@@ -68,9 +68,9 @@ describe('Auth Middleware', () => {
           expect(next).toHaveBeenCalledWith();
         });
 
-    }); 
+    });
     // it()
-    
+
   });
 
 });
