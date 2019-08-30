@@ -22,7 +22,7 @@ let options = {
     },
   },
   basedir: __dirname, //app absolute path
-  files: ['/auth/router'], //Path to the API handle folder
+  files: ['./auth/router.js'], //Path to the API handle folder
 };
 expressSwagger(options);
 swaggerServer.listen(3333);
